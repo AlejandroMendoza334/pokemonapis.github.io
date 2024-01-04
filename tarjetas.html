@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vendor/boostrap/boostrap.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center my-4">
+            Listado de Pokemon
+        </h2>
+
+        <div class="row" id="mostrarDatos">
+              
+        </div>
+
+      
+
+    </div>
+    <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            fetchData()
+        })
+            
+            const fetchData = async () => {
+            try { 
+                /* direccion del api  en este caso con un limete de 150*/
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
+                const data = await res.json()   /* convertir los datos json*/
+                console.log(data)               /*muestra por consala la data*/
+                
+                    
+                /* crar las variables necesarias */
+                    let valor=''
+                    let img='';
+                    let i=1;
+
+                    /* crea un ciclo con todos los datos results que estan dentro de data*/
+                data.results.forEach(item => {
+                    valor+=`
+                    <div class="col-md-4 mb-4 text-center">
+                        <div class="card shadow">
+                            
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png" alt="" >
+                            
+                            <div class="card-footer text-center">
+                                <h3>${item.name}</h3>
+                                <a href="#" class="btn btn-danger">Detalle</a>
+                            </div>
+                        </div>
+                     </div>
+                    `
+                    i++
+
+                });
+                document.getElementById('mostrarDatos').innerHTML=valor; 
+
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+        
+        
+       
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vendor/boostrap/boostrap.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center my-4">
+            Listado de Pokemon
+        </h2>
+
+        <table class="table table-bordered table-striped text-center">
+
+            <thead class="" style="background-color: coral;">
+                <tr>
+                    <th>Imagen</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+
+            <tbody id="mostrarDatos">
+                
+            </tbody>
+
+            <tfoot>
+
+            </tfoot>
+            
+        
+        </table>
+    </div>
+    <script>
+         document.addEventListener("DOMContentLoaded", () => {
+            fetchData()
+        })
+            
+            const fetchData = async () => {
+            try { 
+                /* direccion del api  en este caso con un limete de 150*/
+                const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`)
+                const data = await res.json()   /* convertir los datos json*/
+                console.log(data)               /*muestra por consala la data*/
+                
+                    
+                /* crar las variables necesarias */
+                    let valor=''
+                    let img='';
+                    let i=1;
+
+                    /* crea un ciclo con todos los datos results que estan dentro de data*/
+                data.results.forEach(item => {
+                    valor+=`
+                    <tr>
+                        <td><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png" alt="" width="50px"></td>
+                        <td>${i}</td>
+                        <td>${item.name}</td>
+                        <td><a href="#" class="btn btn-danger">Ver mas</a></td>
+                    </tr>
+                  
+                    `
+                    i++
+
+                });
+                document.getElementById('mostrarDatos').innerHTML=valor; 
+
+            } catch (error) {
+                console.log(error)
+            }
+        } 
+        
+        
+       
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
